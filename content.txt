@@ -1,0 +1,553 @@
+
+                                                Node js Content
+                                                ===============
+
+1) what is nodejs?
+------------------
+
+Node.js is a JavaScript runtime environment that allows you to run JavaScript code outside of a web browser. It is built on Chrome’s V8 JavaScript engine & C++ and is commonly used for backend development to build scalable and high-performance web & mobile applications.
+
+2) Node js architecture?
+------------------------
+
+Node js contains v8 engine and c++, Node js is a runtime environment for js. By using js we can work with node environment.
+
+
+3) How nodejs works?
+--------------------
+
+Node.js follows a Single-Threaded Event Loop architecture, which allows it to handle multiple requests efficiently using asynchronous, non-blocking I/O operations. This makes it highly scalable for real-time applications.
+
+How Node.js Works Step-by-Step:
+
+1️.Client Request Comes In:
+
+  A user requests a resource (e.g fetching data from a database).
+
+2️.Event Loop Receives the Request:
+
+  The request is sent to the event loop, which determines if it’s a simple or complex task.
+  Simple tasks (e.g processing small data): Handled directly by the event loop.
+  Complex tasks (e.g database queries, file system operations): Sent to worker threads.
+
+3️.Non-Blocking I/O Operations:
+
+  Heavy operations (e.g database queries, file reads) are delegated to worker threads.
+  The event loop does not block and continues handling other incoming requests.
+
+4️.Callback Execution:
+
+  Once the worker thread completes the task, the result is added to the callback queue.
+  The event loop picks the task from the callback queue and executes the associated callback function.
+
+5️.Response Sent to Client:
+
+  Once the callback is executed, the final response is sent back to the client.
+
+
+4) How to install node js & run node js?
+----------------------------------------
+
+  download node from node.org & install node in our system.
+
+5) How to write first program in node js?
+-----------------------------------------
+
+   create a parent (root) js file& write some js code.
+
+   node jsfilename
+
+
+Module system in node js
+========================
+
+  global Object in nodejs
+  -----------------------
+
+- In Node.js, the global object is an object that is available everywhere in your application without      needing to import or require it. It is similar to window in the browser but is named global in Node.js
+
+- We don’t have the window object in Node. 
+
+- The global object in Node is “global”.
+ 
+- Unlike browser applications, variables we define are not added to the “global” 
+  object. 
+
+  What is module?
+  -------------- 
+- Every file in a Node application is a module. Node automatically wraps the code in each file 
+  with an IIFE (Immediately-invoked Function Expression) to create scope. So, variables and 
+  functions defined in one file are only scoped to that file and not visible to other files unless         explicitly exported. 
+
+- To export a variable or function from a module, you need to add them to 
+  module.exports: 
+
+- In Node.js, every module is wrapped inside a Module Wrapper Function before execution. This function     provides private scope for each module, preventing variable conflicts and allowing better modularity.
+
+  What is the Module Wrapper Function?
+  -----------------------------------
+
+  When you create a Node.js module, it is automatically wrapped in a function like this:
+
+  (function(exports, require, module, __filename, __dirname) {
+    // Your module code here
+  });
+
+  Provides Useful Arguments:
+
+  exports → A shortcut for module.exports (used for exporting module functionality).
+  require → Used to import other modules.
+  module → Represents the current module and helps in exporting functionality.
+  __filename → The absolute path of the current module file.
+  __dirname → The directory name of the current module file.
+
+  module.exports.sayHello = sayHello; 
+ 
+  How to load module?
+  ------------------
+
+- To load a module, use the require function. This function returns the 
+  module.exports object exported from the target module: 
+
+  const logger = require(‘./logger’);
+
+  Built in modules
+  ----------------
+
+- Node has a few built-in modules that enable us to work with the file system,network, 
+  operating system, etc. 
+
+  os module
+  ---------
+  The os module in Node.js is a built-in module that provides information about the operating system,      such as CPU, memory, network interfaces, and more. It helps developers interact with the system on       which their Node.js application is running.
+
+  const os = require('os');
+
+  console.log("Operating System:", os.platform());
+  console.log("Architecture:", os.arch());
+  console.log(os.hostname());
+  console.log("Total Memory:", os.totalmem());
+  console.log("Free Memory:", os.freemem());
+  console.log("Uptime (seconds):", os.uptime());
+  console.log("CPU Info:", os.cpus());
+  console.log("Network Interfaces:", os.networkInterfaces());
+
+  fs module
+  ---------
+
+  The fs (File System) module in Node.js is a built-in module that allows developers to interact with      the file system. It can be used to read, write, update, delete, and manage files and directories.
+
+  The fs module provides both synchronous and asynchronous methods. Asynchronous methods are preferred     for non-blocking operations.
+
+  Reading a File - fs.readFile()
+  Writing file   - fs.writeFile()
+  Appending file - fs.appendFile()
+  Deleting file  - fs.unlink()
+  Creating Dir   - fs.mkdir()
+  Removing a Directory - fs.rmdir()
+  Checking File Exists - fs.access()
+  Renaming a File      - fs.rename()
+
+
+  events module
+  -------------
+
+  The events module in Node.js allows us to create and handle custom events. It follows the Observer       pattern, where an EventEmitter object emits events and listeners respond to those events.
+
+- EventEmitter is one of the core classes in Node that allows us to raise (emit) and 
+  handle events. Several built-in classes in Node derive from EventEmitter. 
+
+  How to Use the events Module?
+
+const EventEmitter = require('events');
+
+1. Creating an Event Emitter:
+
+The EventEmitter class is used to create an event emitter instance.
+
+
+const eventEmitter = new EventEmitter();
+
+2. Registering an Event Listener
+
+Use .on() or .addListener() to listen for an event.
+
+eventEmitter.on('greet', () => {
+    console.log('Hello, Node.js!');
+});
+
+3. Emitting an Event
+
+Use .emit() to trigger an event.
+
+eventEmitter.emit('greet'); // Output: Hello, Node.js!
+
+4. Passing Arguments to Events
+
+We can pass data when emitting an event.
+
+eventEmitter.on('greetUser', (name) => {
+    console.log(`Hello, ${name}!`);
+});
+
+eventEmitter.emit('greetUser', 'Alice'); // Output: Hello, Alice!
+
+
+
+  http module
+  -----------
+
+ - The http module in Node.js is a built-in module that allows you to create and manage HTTP servers        and It is used to handle requests and responses over the HTTP protocol.
+
+   A client (browser, Postman, or another server) sends an HTTP request to the Node.js server.
+   The http module listens for the request.
+   The server processes the request and sends a response.
+   The client receives the response.
+
+
+  A simple HTTP server can be created using http.createServer():
+
+
+  const http = require('http');
+
+  const server = http.createServer((req, res) => {
+     if(req.url === '/'){
+      res.write('hello');
+      res.end()
+     }
+     if(req.url === '/products'){
+      res.write(JSON.stringfy([{name: 'apple', price: 100}]));
+      res.end()
+     }
+  });
+
+  server.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+  });
+
+
+
+NODE PACKAGE MANAGER (NPM)
+==========================
+
+NPM (Node Package Manager) is the default package manager for Node.js. It helps developers install, manage, and share JavaScript libraries efficiently.
+
+
+Key Features of NPM
+-------------------
+
+Package Management – Install, update, and remove packages.
+Dependency Management – Tracks all installed libraries in package.json.
+Script Automation – Run scripts for building, testing, and deploying apps.
+Version Control – Lock versions to maintain project stability.
+Global & Local Installation – Install tools for a project or system-wide.
+
+Basic NPM Usage
+---------------
+
+-Check If NPM is Installed
+ -------------------------
+
+npm -v   # Displays NPM version
+node -v  # Displays Node.js version (since NPM comes with Node.js)
+
+-Initialize a Project
+ --------------------
+
+Creates a package.json file that stores project dependencies and settings. It contains project meta data
+
+npm init      # Step-by-step configuration
+npm init -y   # Auto-generate package.json with default values
+
+- Every Node application has a package.json file that includes metadata about the 
+  application. This includes the name of the application, its version, dependencies, 
+- We use NPM to download and install 3rd-party packages from NPM registry: 
+- All the installed packages and their dependencies are stored under 
+  node_modules folders. This folder should be excluded from the source control.
+- Node packages follow semantic versioning: major.minor.patch
+
+-Install Packages
+ ----------------
+
+npm install <package>       # Installs a package (locally)
+npm install -g <package>    # Installs a package globally
+npm install <package>@<ver> # Installs a specific version
+npm install                 # Installs all dependencies listed in package.json
+
+-How to use package
+ ------------------
+
+ var variablename = require('packagename')
+
+-package dependencies
+ --------------------
+
+ node_modules contains packages dependencies and it contains inter dependencies.
+
+-How to ignore specific file or folder from sending to github
+ ------------------------------------------------------------
+
+  .gitignore file
+
+   node_modules/
+
+-Semantic version
+ ----------------
+
+^ (Caret)	^1.2.3	Updates minor and patch versions, but keeps the major version fixed (1.x.x)
+~ (Tilde)	~1.2.3	Updates only patch versions, keeping both major and minor versions fixed (1.2.x)
+
+-Listout installed packages
+ --------------------------
+
+  npm list --depth=0
+
+-How to view packages info
+ -------------------------
+
+ npm view packagename
+
+ npm view packagename dependencies
+
+ npm view packagename versions
+
+
+-Uninstall Packages
+ ------------------
+
+npm un (or) uninstall <package>    # Removes a package
+npm un (or) uninstall -g <package> # Removes a globally installed package
+
+-How to find outdated packages
+ -----------------------------
+
+npm outdated
+
+
+-Update Packages
+ ---------------
+
+npm update <package>  # Updates a specific package (it updates minor and patch updates)
+npm update            # Updates all dependencies
+
+To update major version
+-----------------------
+
+npm i -g npm-check-updates
+
+npm-check-updates
+
+npm-check-updates -u => to update in package.json file
+
+npm i => to update in node_modules
+
+
+-How to install Dev dpendencies
+ ------------------------------
+
+ npm i -D packagename
+
+-Run Scripts (Defined in package.json)
+
+"scripts": {
+  "start": "node app.js",
+  "dev": "nodemon app.js"
+}
+
+-Run commands:
+
+npm start   # Runs "start" script
+npm run dev # Runs "dev" script
+
+
+-How to publish own modules
+ --------------------------
+ 
+ First you should have npm account
+
+ npm login
+
+ npm publish (It will be published in npm js)
+
+ we can use published module in our other project
+
+ npm i packagename
+
+-How to update published package
+ -------------------------------
+
+ npm version major/minor/patch
+
+ npm publish
+
+
+
+
+Expess JS
+=========
+
+What is Express.js?
+
+Express.js is a fast, unopinionated, and minimalist web framework for Node.js used to build web applications and APIs. It simplifies the process of handling HTTP requests, defining routes, and integrating middleware.
+
+How to build server & api
+-------------------------
+npm install express
+
+Create the Express Server
+-------------------------
+const express = require('express');
+
+const app = express();
+
+creating api 
+------------
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the eCommerce API!');
+});
+
+Start the server
+----------------
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+
+
+Nodemon
+-------
+
+nodemon is a tool that automatically restarts your Node.js application whenever it detects file changes. This saves time by eliminating the need to manually stop and restart the server after every code modification.
+
+You can install nodemon globally (to use in any project) or locally (for a specific project).
+
+ - Install Globally (Recommended)
+
+   npm install -g nodemon
+   
+   This allows you to run nodemon in any project.
+
+   Install Locally (For a Specific Project)
+
+-  npm install --save-dev nodemon
+
+   This adds nodemon as a dev dependency in your package.json file.
+
+Instead of running:
+
+- node server.js
+
+- nodemon server.js
+
+Now, whenever you edit and save server.js, nodemon will automatically restart the server.
+
+Configure nodemon in package.json
+---------------------------------
+
+You can update package.json to always use nodemon:
+
+Update the "scripts" section like this:
+
+"scripts": {
+  "start": "node server.js",
+  "dev": "nodemon server.js"
+}
+
+Now, run:
+---------
+npm run dev
+
+This will start the server with nodemon.
+
+Why Use nodemon?
+
+ -Auto-restarts the server when code changes
+ -Faster development (no need to restart manually)
+
+
+Parameters
+==========
+
+In Express.js, route parameters and query parameters are two ways to pass data in a URL. They serve different purposes and are accessed differently in your Express routes.
+
+
+Route Parameters (req.params)
+-----------------------------
+
+-What are Route Parameters?
+
+Route parameters are part of the URL path.
+They are used to identify specific resources (e.g., user ID, product ID).
+Defined using : (colon) in the route definition.
+They are accessed using req.params.
+
+const express = require('express');
+const app = express();
+
+// Route with a parameter ":id"
+
+ app.get('/user/:id', (req, res) => {
+    res.send(`User ID: ${req.params.id}`);
+});
+
+app.listen(5000, () => console.log('Server running on port 5000'));
+
+Use Cases of Route Parameters
+-----------------------------
+
+ - Fetching details of a specific user, product, or order
+ - Updating or deleting a resource using an ID
+
+
+Query Parameters (req.query)
+----------------------------
+
+Query parameters are key-value pairs added after ? in the URL.
+
+Used for search, filtering, pagination, and optional parameters.
+
+Accessed using req.query in Express.
+
+const express = require('express');
+const app = express();
+
+app.get('/search', (req, res) => {
+    const name = req.query.name;
+    const age = req.query.age;
+    res.send(`Searching for name: ${name}, age: ${age}`);
+});
+
+app.listen(5000, () => console.log('Server running on port 5000'));
+
+Use Cases of Query Parameters
+-----------------------------
+- Filtering products (/products?category=electronics&price=low)
+- Pagination (/posts?page=2&limit=10)
+- Searching (/users?name=John)
+
+
+HTTP CALLS (API CALLS)
+----------------------
+
+-getAll resources
+
+app.get('/products', (req, res)=>{})
+
+-getSingle resource
+
+app.get('/products/id', (req, res)=>{})
+
+-post resource
+
+app.post('/products', (req, res)=>{})
+
+-update resouce
+
+app.put('/products/id', (req, res)=>{})
+
+-delete resouce
+
+app.delete('/products/id', (req, res)=>{})
