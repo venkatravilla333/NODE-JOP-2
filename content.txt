@@ -551,3 +551,98 @@ app.put('/products/id', (req, res)=>{})
 -delete resouce
 
 app.delete('/products/id', (req, res)=>{})
+
+
+
+Express Router
+==============
+
+express.Router() allows you to create modular, mountable route handlers in Express.js. It helps keep your routes organized and maintainable by separating them into different files.
+
+const express = require('express');
+const router = express.Router();
+
+-export the router
+
+module.exports = router;
+
+-Import the router
+
+const userRoutes = require('./routes/userRoutes');
+
+-Use the router with a base path
+
+app.use('/users', userRoutes);
+
+
+
+Middlewares in express
+----------------------
+
+Middleware
+----------
+
+-It is a function, It takes a request object, and either returns a response to client or passes control   to another middleware function.
+
+-Middleware in Express.js is a function that sits between the request and response cycle. It processes    the request before it reaches the final route handler or modifies the response before sending it back    to the client.
+
+
+app.use
+-------
+
+-app.use() registers middleware functions.
+-Middleware runs before route handlers functions.
+-It can be used for logging, authentication, error handling, parsing request data, etc.
+-It can be applied to all routes or specific routes.
+
+Custom Middleware
+-----------------
+Middleware that you write yourself to handle specific application logic.
+
+ Ex: Authentication, Logging, Error Handling
+
+Use Case:
+--------
+
+Security (e.g., authentication, role-based access)
+Logging (e.g., tracking user requests)
+Custom error handling
+
+
+Built-in Middleware
+-------------------
+Middleware provided by Express.js for common tasks.
+
+Express provides predefined middleware functions to handle common operations like parsing request bodies or serving static files.
+
+Examples of Built-in Middleware:
+
+express.json() – Parses incoming JSON requests. (Parse JSON data)
+express.urlencoded({ extended: true }) – Parses URL-encoded form data. (Parse form data)
+express.static('public') – Serves static files like images, CSS, JavaScript. (Serve static files)
+
+Use Case:
+--------
+
+Handling request data (JSON)
+Serving static files (CSS, images, JavaScript)
+Processing URL-encoded payloads.
+
+
+Third-Party Middleware
+----------------------
+Third-party middleware is installed via npm to add extra functionalities like CORS, security, 
+
+ Ex: cors, morgan, helmet, body-parcer,
+
+cors – Enables cross-origin requests.
+morgan – Logs HTTP requests.
+helmet – Secures HTTP headers.
+
+helmet is a middleware for security in Express.js. It helps protect your app from common web vulnerabilities by setting various HTTP headers.
+
+helmet is an essential middleware for securing Express apps.
+It sets various HTTP headers to protect against XSS, clickjacking, MIME sniffing, and more.
+Highly recommended for any production application.
+
+By default, helmet() enables multiple security-related headers:
