@@ -1,6 +1,7 @@
 
 
 var express = require('express')
+var mongoose = require('mongoose')
 
 var cors = require('cors')
 var morgan = require('morgan')
@@ -25,6 +26,8 @@ function authentication(req, res, next) {
 
 app.use(authentication)
 
+var productModal = require('./modals/productModal.js')
+
 
 
 app.get('/', (req, res) => {
@@ -32,7 +35,35 @@ app.get('/', (req, res) => {
 })
 
 
+var dbUrl = 'mongodb://localhost:27017/Ecom-db'
 
+mongoose.connect(dbUrl)
+.then(() => {
+  console.log('DB CONNECTED SUCCESSFULLY')
+}).catch((err) => {
+  console.log(err, 'Error while connect with db')
+})
+
+
+async function sendProduct() {
+  var newProduct = {
+    name: 'banana',
+    price: 100
+  }
+
+  var product = await productModal.create(newProduct)
+  console.log(product)
+
+}
+sendProduct()
+
+async function getProducts() {
+
+  var products = await productModal.find()
+  console.log(products)
+
+}
+getProducts()
 
 app.listen(5000, () => {
   console.log('server started in port 5000')
