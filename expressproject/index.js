@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 })
 
 
-var dbUrl = 'mongodb://localhost:27017/Ecom-db'
+var dbUrl = 'mongodb://localhost:27017/Ecome-db'
 
 mongoose.connect(dbUrl)
 .then(() => {
@@ -45,25 +45,93 @@ mongoose.connect(dbUrl)
 })
 
 
-async function sendProduct() {
-  var newProduct = {
-    name: 'banana',
-    price: 100
-  }
+// async function sendProduct() {
+  // var newProduct = {
+  //   name: 'appple',
+  //   price: 200
+  // }
 
-  var product = await productModal.create(newProduct)
-  console.log(product)
+  // var products = await productModal.insertMany([{ name: 'laptop', price: 30000 }, { name: 'tab', price: 5000 }])
+  
+  // var res = await products.save()
+  // console.log(res)
 
-}
-sendProduct()
+//   var product = new productModal({
+//     name: 'papaya',
+//     price: 300
+//   })
+
+//  var res = await product.save()
+  // console.log(res)
+  // console.log(product)
+  // console.log(products)
+
+// }
+// sendProduct()
 
 async function getProducts() {
 
-  var products = await productModal.find()
+//  var products = await productModal.find({price: {$lte: 5000}})
+//  var products = await productModal.find({ price: { $nin: [300, 5000] } })
+ var products = await productModal.find({
+  $or: [
+    { price: 500 },
+    { name: "tab" }
+  ]
+})
+  // var pageNumber = 1
+  // var resPerPage = 2
+  // var products = await productModal
+  //   .find()
+  //   .skip((pageNumber-1)* resPerPage)
+  //   .limit(resPerPage)
+    // .select({name: false})
+  // .sort({price: -1})
+  
+    // .countDocuments()
   console.log(products)
 
 }
 getProducts()
+
+// async function getSingleProduct(id) {
+
+//   var products = await productModal.findById({_id: id})
+//   console.log(products)
+
+// }
+// getSingleProduct('69099b28200d3088b6dbad44')
+
+// async function updateProduct(id) {
+
+//   let product = await productModal.findById(id)
+  
+//   product.name = 'pen'
+//   product.price = 10
+//   var res = await product.save()
+//   console.log(res)
+
+  // var product = await productModal.findByIdAndUpdate(id, {
+  //   $set: {
+  //       name: 'tab',
+  //       price: 8000
+  //     }
+  // }, {new: true})
+  
+
+//   console.log(product)
+// }
+
+
+// updateProduct('69099b28200d3088b6dbad44')
+
+// async function deleteProduct(id) {
+  // var res = await productModal.findByIdAndDelete(id)
+  // var res = await productModal.deleteMany({price: false})
+  // console.log(res)
+// }
+
+// deleteProduct()
 
 app.listen(5000, () => {
   console.log('server started in port 5000')
