@@ -3,13 +3,21 @@ var mongoose = require('mongoose')
 var productSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    minLength: 3,
+    maxLength: 8,
+    trim: true,
+    // lowercase: true
+    // uppercase: true,
+    unique: true
+    
   },
   price: {
     type: Number,
-    required: true
+    required: true,
+    default: 1000
   }
-}, {timeStamps: true})
+}, {timestamps: true})
 
 var ProductModal = mongoose.model('product', productSchema)
 

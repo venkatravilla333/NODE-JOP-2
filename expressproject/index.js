@@ -26,7 +26,7 @@ function authentication(req, res, next) {
 
 app.use(authentication)
 
-var productModal = require('./modals/productModal.js')
+const ProductModal = require('./modals/productModal.js')
 
 
 
@@ -35,7 +35,9 @@ app.get('/', (req, res) => {
 })
 
 
-var dbUrl = 'mongodb://localhost:27017/Ecome-db'
+// var dbUrl = 'mongodb://localhost:27017/Ecome-db'
+var dbUrl = 'mongodb+srv://reyansoft:reyansoft123@cluster0.ahvy0mh.mongodb.net/ecom-db'
+
 
 mongoose.connect(dbUrl)
 .then(() => {
@@ -46,39 +48,39 @@ mongoose.connect(dbUrl)
 
 
 // async function sendProduct() {
-  // var newProduct = {
-  //   name: 'appple',
-  //   price: 200
-  // }
-
-  // var products = await productModal.insertMany([{ name: 'laptop', price: 30000 }, { name: 'tab', price: 5000 }])
-  
-  // var res = await products.save()
-  // console.log(res)
-
-//   var product = new productModal({
-//     name: 'papaya',
-//     price: 300
+//   var newProduct = new ProductModal({
+//     name: 'appple',
+//     price: 200
 //   })
 
-//  var res = await product.save()
-  // console.log(res)
-  // console.log(product)
-  // console.log(products)
+//   // var products = await productModal.insertMany([{ name: 'laptop', price: 30000 }, { name: 'tab', price: 5000 }])
+  
+//   var res = await newProduct.save()
+//   console.log(res)
+
+// //   var product = new productModal({
+// //     name: 'papaya',
+// //     price: 300
+// //   })
+
+// //  var res = await product.save()
+// //   console.log(res)
+// //   console.log(product)
+// //   console.log(products)
 
 // }
 // sendProduct()
 
-async function getProducts() {
+// async function getProducts() {
 
 //  var products = await productModal.find({price: {$lte: 5000}})
 //  var products = await productModal.find({ price: { $nin: [300, 5000] } })
- var products = await productModal.find({
-  $or: [
-    { price: 500 },
-    { name: "tab" }
-  ]
-})
+//  var products = await productModal.find({
+//   $or: [
+//     { price: 500 },
+//     { name: "tab" }
+//   ]
+// })
   // var pageNumber = 1
   // var resPerPage = 2
   // var products = await productModal
@@ -89,10 +91,10 @@ async function getProducts() {
   // .sort({price: -1})
   
     // .countDocuments()
-  console.log(products)
+//   console.log(products)
 
-}
-getProducts()
+// }
+// getProducts()
 
 // async function getSingleProduct(id) {
 
