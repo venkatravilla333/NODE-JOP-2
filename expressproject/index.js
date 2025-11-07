@@ -7,6 +7,7 @@ var cors = require('cors')
 var morgan = require('morgan')
 var cookieparser = require('cookie-parser')
 var productRoutes = require('./routes/productRoutes.js')
+var userRoutes = require('./routes/userRoutes.js')
 
 var app = express()
 
@@ -18,6 +19,7 @@ app.use(cors())
 app.use((morgan('tiny')))
 app.use(cookieparser())
 app.use('/api/product', productRoutes)
+app.use('/api/user', userRoutes)
 
 function authentication(req, res, next) {
   console.log('authentication')

@@ -2,6 +2,7 @@
 var express = require('express')
 var productModal = require('../modals/productModal.js')
 var router = express.Router()
+const Joi = require('joi');
 
 // var products = [
 //   { id: 1, name: 'apple', price: 200 },
@@ -12,21 +13,23 @@ var router = express.Router()
 
 //api for getting all products
 
-router.get('/', async(req, res) => {
-  var products = await productModal.find()
-  return res.send(products)
+router.get('/', async (req, res) => {
+  console.log(req.query)
+  // var products = await productModal.find()
+  // return res.send(products)
 })
 
 //api for getting single product
 
 router.get('/:id', async(req, res) => {
-  console.log(req.params.id)
+  // console.log(req.params.id)
+  console.log(req.query)
   // var product = productModal.find((product) => product.id === parseInt(req.params.id))
-  var product = await productModal.findById(req.params.id)
+  // var product = await productModal.findById(req.params.id)
   
-  if (!product) return res.send('no product found with given id')
+  // if (!product) return res.send('no product found with given id')
   
-  return res.json(product)
+  // return res.json(product)
 })
 
 //api for creating product
@@ -36,14 +39,15 @@ router.post('/', async (req, res) => {
   var newProduct = {
     // id: products.length + 1,
     name: req.body.name,
-    price: req.body.price
+    price: req.body.price,
+    // category: req.body.category
   }
 
 
-   var product = await productModal.create(newProduct)
-  // products.push(newProduct)
+  //  var product = await productModal.create(newProduct)
+  // // products.push(newProduct)
 
-  return res.send(product)
+  // return res.send(product)
   
 })
 
